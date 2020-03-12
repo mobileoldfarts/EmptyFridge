@@ -1,0 +1,4 @@
+enum ProductSelectionAction{
+  add,
+  skip
+}
