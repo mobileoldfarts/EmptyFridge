@@ -1,4 +1,5 @@
 import 'package:empty_fridge/components/ProductCard.dart';
+import 'package:empty_fridge/components/RoundedButton.dart';
 import 'package:empty_fridge/entities/Product.dart';
 import 'package:empty_fridge/presentation/productSelection/bloc/ProductSelection.dart';
 import 'package:empty_fridge/presentation/productSelection/bloc/ProductSelectionAction.dart';
@@ -22,21 +23,45 @@ class _ProductSelectionScreenState extends State<ProductSelectionScreen> {
     return Scaffold(
       body: Container(
           color: Color(0xFF3D9098),
-          child: Consumer<ProductSelectionBloc>(builder: (context, _productSelectionBloc, child) {
-            return StreamBuilder<Product>(
-              initialData: Product(""),
-              stream: _productSelectionBloc.currentProduct,
-              builder: (context, snapshot) {
-                var product = snapshot.data;
+          child: Padding(
+              padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 8.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Container(
+                          child: IconButton(
+                            icon: Icon(Icons.info_outline),
+                            tooltip: 'Info',
+                            onPressed: () {},
+                          ),
+                        )
+                      ],
+                    ),
+                    Consumer<ProductSelectionBloc>(builder: (context, _productSelectionBloc, child) {
+                      return StreamBuilder<Product>(
+                        initialData: Product(""),
+                        stream: _productSelectionBloc.currentProduct,
+                        builder: (context, snapshot) {
+                          var product = snapshot.data;
 
-                if (product != null) {
-                  return _getCard(product, _productSelectionBloc.handleEvent);
-                }
+                          if (product != null) {
+                            return _getCard(product, _productSelectionBloc.handleEvent);
+                          }
 
-                return CircularProgressIndicator();
-              },
-            );
-          })),
+                          return CircularProgressIndicator();
+                        },
+                      );
+                    }),
+                  RoundedButton(
+                    color: Colors.lightGreen,
+                    title: 'Finish selection',
+                    onPressed: () {
+                  }),
+                  ]))),
     );
   }
 
