@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: ProductSelectionScreen(title: 'Flutter Demo Home Page'),
+        initialRoute: ProductSelectionScreen.id,
         routes: <String, WidgetBuilder>{
           ProductSelectionScreen.id: (BuildContext context) => ProductSelectionScreen(),
         },
