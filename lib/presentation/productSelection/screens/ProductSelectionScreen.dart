@@ -3,6 +3,7 @@ import 'package:empty_fridge/components/RoundedButton.dart';
 import 'package:empty_fridge/entities/Product.dart';
 import 'package:empty_fridge/presentation/productSelection/bloc/ProductSelection.dart';
 import 'package:empty_fridge/presentation/productSelection/bloc/ProductSelectionAction.dart';
+import 'package:empty_fridge/presentation/productSelection/screens/AboutScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,9 +37,14 @@ class _ProductSelectionScreenState extends State<ProductSelectionScreen> {
                           child: IconButton(
                             icon: Icon(Icons.info_outline),
                             tooltip: 'Info',
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => AboutScreen()),
+                              );
+                            },
                           ),
-                        )
+                        ),
                       ],
                     ),
                     Consumer<ProductSelectionBloc>(builder: (context, _productSelectionBloc, child) {
