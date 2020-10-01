@@ -25,7 +25,7 @@ class _ProductSelectionScreenState extends State<ProductSelectionScreen> {
       body: Container(
           color: Color(0xFF3D9098),
           child: Padding(
-              padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 8.0),
+              padding: EdgeInsets.fromLTRB(0.0, 32.0, 0, 8.0),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,43 +62,97 @@ class _ProductSelectionScreenState extends State<ProductSelectionScreen> {
                         },
                       );
                     }),
-                  RoundedButton(
-                    color: Colors.lightGreen,
-                    title: 'Finish selection',
-                    onPressed: () {
-                  }),
+                    RoundedButton(color: Colors.lightGreen, title: 'Finish selection', onPressed: () {}),
                   ]))),
     );
   }
 
+  Widget slideLeftBackground() {
+    return Container(
+      color: Colors.green,
+      child: Align(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              width: 10,
+            ),
+            Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            Text(
+              " Add",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 24.0,
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+        alignment: Alignment.centerLeft,
+      ),
+    );
+  }
+
+  Widget slideRightBackground() {
+    return Container(
+      color: Colors.red,
+      child: Align(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+            Text(
+              " Skip",
+              style: TextStyle(
+                color: Colors.white,
+                // fontWeight: FontWeight.w700,
+                fontSize: 24.0,
+              ),
+              textAlign: TextAlign.right,
+            ),
+            SizedBox(
+              width: 30,
+            ),
+          ],
+        ),
+        alignment: Alignment.centerRight,
+      ),
+    );
+  }
+
   Widget _getCard(Product product, Function(ProductSelectionAction) handle) {
-    return Center(
-      child: Container(
+    return Dismissible(
+      key: UniqueKey(),
+      background: slideLeftBackground(),
+      secondaryBackground: slideRightBackground(),
+      onDismissed: (DismissDirection direction) {
+        if (direction == DismissDirection.endToStart) {
+          handle(ProductSelectionAction.skip);
+//                          setState(() {
+//                    _controller.value = 0.5;
+//                    _controller.forward();
+//                          });
+        } else {
+          handle(ProductSelectionAction.add);
+//                          setState(() {
+//                    _controller.value = 0.5;
+//                    _controller.forward();
+//                          });
+        }
+      },
+      // child: ListTile(title: Text('${product.name}')),
+      child: ProductCard(
+        title: product.name,
         width: MediaQuery.of(context).size.width / 1.2,
         height: MediaQuery.of(context).size.width / 2,
-        child: Dismissible(
-            key: UniqueKey(),
-            onDismissed: (DismissDirection direction) {
-              if (direction == DismissDirection.endToStart) {
-                handle(ProductSelectionAction.skip);
-//                          setState(() {
-//                    _controller.value = 0.5;
-//                    _controller.forward();
-//                          });
-              } else {
-                handle(ProductSelectionAction.add);
-//                          setState(() {
-//                    _controller.value = 0.5;
-//                    _controller.forward();
-//                          });
-              }
-            },
-            child: ProductCard(
-              title: product.name,
-              width: MediaQuery.of(context).size.width / 1.2,
-              height: MediaQuery.of(context).size.width / 2,
 //                    * _animation.value,
-            )),
       ),
     );
   }
