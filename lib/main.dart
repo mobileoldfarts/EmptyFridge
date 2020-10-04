@@ -1,10 +1,14 @@
 import 'package:empty_fridge/presentation/productSelection/bloc/ProductSelection.dart';
 import 'package:empty_fridge/presentation/productSelection/screens/ProductSelectionScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:provider/provider.dart';
 
 
-void main() => runApp(MyApp());
+void main() {
+  Stetho.initialize();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
