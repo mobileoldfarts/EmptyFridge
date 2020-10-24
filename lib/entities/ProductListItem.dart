@@ -8,17 +8,20 @@ class ProductListItem{
 
   ProductListItem(this.id, this.product, this.isPurchased);
 
-  ProductListItem productFromMap(Map inMap) {
+  ProductListItem.fromMap(Map inMap) {
 
     bool isPurchased = false;
     if(inMap["isPurchased"] == "1"){
       isPurchased = true;
     }
 
-    ProductListItem result = ProductListItem(inMap["id"], Product(inMap["name"]), isPurchased);
-    return result;
+    // ProductListItem result = ProductListItem(inMap["id"], Product(inMap["name"]), isPurchased);
+    // return result;
+    this.id = inMap["id"];
+    this.product = Product(inMap["name"]);
+    this.isPurchased = isPurchased;
   }
-  Map<String, dynamic> noteToMap(ProductListItem item) {
+  Map<String, dynamic> toMap(ProductListItem item) {
     Map<String, dynamic> map = Map<String, dynamic>();
     map["id"] = item.id;
     map["title"] = item.product.name;

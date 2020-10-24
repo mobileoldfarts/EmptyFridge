@@ -18,6 +18,7 @@ class ProductSelectionBloc implements Bloc {
 
   Product get currProduct => _listProduct[_currPosition];
   final _currentProductController = StreamController<Product>();
+  Stream<Product> get currentProduct => _currentProductController.stream;
   var _currPosition = 0;
 
   ProductSelectionBloc() {
@@ -43,10 +44,11 @@ class ProductSelectionBloc implements Bloc {
     }
   }
 
-  Stream<Product> get currentProduct => _currentProductController.stream;
 
   @override
   void dispose() {
     _currentProductController.close();
+
+
   }
 }
