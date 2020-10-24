@@ -1,6 +1,7 @@
 import 'package:empty_fridge/components/ProductCard.dart';
 import 'package:empty_fridge/components/RoundedButton.dart';
 import 'package:empty_fridge/entities/Product.dart';
+import 'package:empty_fridge/presentation/listProduct/ListProductScreen.dart';
 import 'package:empty_fridge/presentation/productSelection/bloc/ProductSelection.dart';
 import 'package:empty_fridge/presentation/productSelection/bloc/ProductSelectionAction.dart';
 import 'package:empty_fridge/presentation/productSelection/screens/AboutScreen.dart';
@@ -62,9 +63,18 @@ class _ProductSelectionScreenState extends State<ProductSelectionScreen> {
                         },
                       );
                     }),
-                    RoundedButton(color: Colors.lightGreen, title: 'Finish selection', onPressed: () {}),
+                    RoundedButton(color: Colors.lightGreen, title: 'Finish selection', onPressed: () {
+                      Navigator.pushNamed(context, ListProductScreen.id);
+                    }),
                   ]))),
     );
+  }
+
+
+  @override
+  void dispose() {
+
+    super.dispose();
   }
 
   Widget slideLeftBackground() {
