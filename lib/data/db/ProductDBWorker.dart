@@ -36,6 +36,12 @@ class ProductDBWorker {
     return mapProducts.isNotEmpty ? mapProducts.map((it) => ProductListItem.fromMap(it)).toList() : List<ProductListItem>();
   }
 
+  Future checkProduct(int id, bool isChecked) async {
+    Database db = await database;
+
+    db.update("products", {"isPurchased":isChecked}, where: "id = ?", whereArgs: [id]);
+  }
+
   Future create(ProductListItem item) async {
     Database db = await database;
     var val = await db.rawQuery("SELECT MAX(id) + 1 AS id FROM products");

@@ -11,7 +11,7 @@ class ProductListItem{
   ProductListItem.fromMap(Map inMap) {
 
     bool isPurchased = false;
-    if(inMap["isPurchased"] == "1"){
+    if(inMap["isPurchased"] == 1){
       isPurchased = true;
     }
 

@@ -32,7 +32,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
             var list = snapshot.data;
 
             if (list != null) {
-              return _getList(list);
+              return _getList(list, _bloc.checkProduct);
             }
 
             return CircularProgressIndicator();
@@ -42,7 +42,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
     );
   }
 
-  _getList(List<ProductListItem> list) {
+  _getList(List<ProductListItem> list, Function(int, bool) checked) {
     return ListView.separated(
       padding: const EdgeInsets.all(8),
       itemCount: list.length,
@@ -50,7 +50,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
         return CheckboxListTile(
           title: Text(list[index].product.name),
           onChanged: (bool value) {
-            list[index].isPurchased = value;
+            checked(list[index].id, value);
           },
           value: list[index].isPurchased,
         );
