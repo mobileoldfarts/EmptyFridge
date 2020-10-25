@@ -22,4 +22,11 @@ class ListProductBloc implements Bloc {
   void loadList() async {
     _listProduct.sink.add(await ProductDBWorker.db.getAllProduct());
   }
+
+  void checkProduct(int id, bool isChecked) async{
+
+    ProductDBWorker.db.checkProduct(id, isChecked);
+    loadList();
+
+  }
 }
