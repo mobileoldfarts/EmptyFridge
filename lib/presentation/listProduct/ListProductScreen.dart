@@ -23,12 +23,23 @@ class _ListProductScreenState extends State<ListProductScreen> {
       appBar: AppBar(
         title: Text('Product list'),
         backgroundColor: Color(0xFF3D9098),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.done_all),
+            tooltip: 'Done all',
+            onPressed: () {
+              Provider.of<ListProductBloc>(context, listen: false).doneAll();
+              Navigator.pop(context);
+              },
+          )
+        ],
       ),
       body: Consumer<ListProductBloc>(builder: (context, _bloc, child) {
         return StreamBuilder<List<ProductListItem>>(
           initialData: List(),
           stream: _bloc.listProduct,
           builder: (context, snapshot) {
+            _bloc.loadList();
             var list = snapshot.data;
 
             if (list != null) {
