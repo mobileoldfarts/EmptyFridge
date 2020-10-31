@@ -54,4 +54,10 @@ class ProductDBWorker {
         "VALUES (?, ?, ?)",
         [id, item.product.name, item.isPurchased ? 1 : 0]);
   }
+
+  Future deleteAll() async {
+     Database db = await database;
+
+     return db.delete("products");
+  }
 }

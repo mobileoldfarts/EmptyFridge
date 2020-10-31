@@ -29,4 +29,9 @@ class ListProductBloc implements Bloc {
     loadList();
 
   }
+
+  void doneAll() async {
+    ProductDBWorker.db.deleteAll();
+    loadList();
+  }
 }
