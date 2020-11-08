@@ -18,6 +18,7 @@ class ProductSelectionBloc implements Bloc {
 
   Product get currProduct => _listProduct[_currPosition];
   final _currentProductController = StreamController<Product>();
+
   Stream<Product> get currentProduct => _currentProductController.stream;
   var _currPosition = 0;
 
@@ -26,13 +27,6 @@ class ProductSelectionBloc implements Bloc {
   }
 
   void handleEvent(ProductSelectionAction action) {
-    _currPosition++;
-    if (_currPosition >= _listProduct.length) {
-      _currPosition = 0;
-    }
-
-    _currentProductController.sink.add(_listProduct[_currPosition]);
-
     switch (action) {
       case ProductSelectionAction.add:
         // TODO: Handle this case.
@@ -42,13 +36,17 @@ class ProductSelectionBloc implements Bloc {
         // TODO: Handle this case.
         break;
     }
-  }
 
+    _currPosition++;
+    if (_currPosition >= _listProduct.length) {
+      _currPosition = 0;
+    }
+
+    _currentProductController.sink.add(_listProduct[_currPosition]);
+  }
 
   @override
   void dispose() {
     _currentProductController.close();
-
-
   }
 }
